@@ -11,7 +11,7 @@ uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
 
 ## What it computes
 - Material score per state: 1/hand card, 2/board card (jacks excluded), +0.5 if your turn; glasses cap at 1, queens cap at 2; point cards that do not lower cards-to-win (given kings/points) count as 0.
-- Metrics/tables: win/flip by diff, deck-aware variants, decisive-lead timing, move-type deltas, first-mover/first-points/first-king win rates.
+- Metrics/tables: win/flip by diff, deck-aware variants, decisive-lead timing, move-type deltas (move value = change in material diff per move), first-mover/first-points/first-king win rates.
 - Plots: win probability (overall/by deck depth), flip probability (overall/by deck depth), win rate (overall/by deck depth), lead-timing bars, move-delta bars, first-action bars, plus heatmaps (win/flip) over material diff × deck size.
 
 ## CLI options (common)
@@ -19,7 +19,7 @@ uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
 - `--output-dir`: where to write tables/plots (default none).
 - `--diff-bins`: comma-separated material diff bin edges.
 - `--deck-quantiles`: quantile buckets for deck-depth tables (default 5).
-- `--deck-bin-width`: deck-size bin width (cards remaining) for heatmaps (default 5).
+- `--deck-bin-width`: deck-size bin width (cards remaining) for heatmaps (default 1).
 - `--lead-margins`: margins for decisive-lead timing (comma-separated).
 
 ## Notes / misc

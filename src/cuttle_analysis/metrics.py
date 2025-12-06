@@ -231,16 +231,7 @@ def move_type_material_deltas(df: pd.DataFrame) -> pd.DataFrame:
     """
     Compute change in material_diff per moveType.
     """
-    frames = []
-    for _, group in df.sort_values(["gameId_hashed", "move_number"]).groupby(
-        "gameId_hashed", sort=False
-    ):
-        diff = group["material_diff"].to_numpy()
-        delta = np.diff(diff, prepend=diff[0])
-        g = group.copy()
-        g["material_diff_delta"] = delta
-        frames.append(g)
-    enriched = pd.concat(frames, ignore_index=True)
+    enriched = add_move_values(df)
     return (
         enriched.groupby("moveType", dropna=False)
         .agg(
@@ -249,6 +240,8 @@ def move_type_material_deltas(df: pd.DataFrame) -> pd.DataFrame:
             median_delta=("material_diff_delta", "median"),
             p90_delta=("material_diff_delta", lambda x: np.nanpercentile(x, 90)),
             p10_delta=("material_diff_delta", lambda x: np.nanpercentile(x, 10)),
+            avg_move_value=("move_value", "mean"),
+            median_move_value=("move_value", "median"),
         )
         .reset_index()
     )
@@ -256,6 +249,21 @@ def move_type_material_deltas(df: pd.DataFrame) -> pd.DataFrame:
 
 def _game_groups(df: pd.DataFrame):
     return df.sort_values("move_number").groupby("gameId_hashed", sort=False)
+
+
+def add_move_values(df: pd.DataFrame) -> pd.DataFrame:
+    """Attach material_diff deltas per row (move value = current diff minus previous diff)."""
+    frames = []
+    for _, group in df.sort_values(["gameId_hashed", "move_number"]).groupby(
+        "gameId_hashed", sort=False
+    ):
+        diff = group["material_diff"].to_numpy()
+        delta = np.diff(diff, prepend=diff[0])
+        g = group.copy()
+        g["material_diff_delta"] = delta
+        g["move_value"] = delta
+        frames.append(g)
+    return pd.concat(frames, ignore_index=True)
 
 
 def first_mover_win_rates(df: pd.DataFrame) -> pd.DataFrame:

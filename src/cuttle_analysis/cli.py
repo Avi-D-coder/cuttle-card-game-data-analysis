@@ -69,7 +69,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--deck-bin-width",
         type=int,
-        default=5,
+        default=1,
         help="Deck size bin width for heatmaps (cards remaining).",
     )
     parser.add_argument(

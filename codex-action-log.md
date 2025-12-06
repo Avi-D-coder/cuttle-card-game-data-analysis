@@ -14,15 +14,19 @@
 - Clarified the point-card caveat: only count offensive cards that reduce the number of turns/cards to win (e.g., King + small point that doesn’t change card count is ignored).
 - Agreed to analyze across all states, not just final rows, and to stratify by deck size because it’s public information.
 - User requested linting with ruff, visuals, and a written takeaway document; also asked to ensure code matches the described metric.
+- Later requests: treat move value as the raw change in material diff between successive states (no actor-alignment), keep deck-depth variants and zero-diff flip handling, rerun the full CLI after code updates, and keep this log/takeaways in sync.
+ - Asked to make deck-depth views more granular/continuous and ensure plots refresh accordingly.
 
 ## What was done
 - Built a Python package (`pyproject.toml`) with modules:
   - `data_loader`: CSV parsing/coercion, helper columns.
   - `material`: material score implementation with caps and “extra offensive card” exclusion.
-  - `metrics`: win/flip tables, deck-aware variants, decisive-lead timing, move-type deltas, first-mover/first-points/first-kings win rates.
+  - `metrics`: win/flip tables, deck-aware variants, decisive-lead timing, move-type deltas (including move value = diff delta), first-mover/first-points/first-kings win rates.
   - `visuals`: logistic win-probability plots, flip-probability plots, win-rate plots (overall and by deck depth with legends), plus heatmaps over material diff × deck size.
   - `cli`: runs the full analysis and writes artifacts.
 - Generated artifacts in `artifacts/`: summary tables, win/flip plots, first-action win-rate tables, heatmaps, and `takeaways.md` with player-facing guidance.
 - Ran linting (`ruff check src`, clean).
 - Verified implementation aligns with the metric text (caps on glasses/queens, ignore non-contributing points, exclude jacks, +0.5 turn bonus).
 - Fixed flip-probability computation to ignore zero-diff (no-leader) states; flip means a leader changing sign. Regenerated all artifacts/plots accordingly, and added deck-size heatmaps (bin width configurable).
+- Reset back to the initial commit when asked, re-applied the move-value change (diff delta per move), reran the CLI on `first_100k_gamestates.csv` to refresh every table/plot, and updated `takeaways.md` to reflect the latest outputs.
+- Increased deck-depth heatmap granularity (default deck bin width to 1 card) and reran the CLI so PNGs and tables reflect the finer deck-size resolution.
