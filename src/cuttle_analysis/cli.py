@@ -32,6 +32,7 @@ from .visuals import (
     plot_win_rate_by_deck_and_diff,
     plot_win_rate_by_diff,
 )
+from .learned import apply_learned_scores
 
 
 
@@ -65,6 +66,12 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=None,
         help="Optional directory for learned scoring outputs (e.g., artifacts-learned).",
+    )
+    parser.add_argument(
+        "--learned-weights",
+        type=str,
+        default="artifacts-ml-perspective/weights_quantized.json",
+        help="Path to learned weight JSON (quantized) for learned scoring.",
     )
     parser.add_argument(
         "--diff-bins",
@@ -245,9 +252,9 @@ def main() -> None:
     # Run point-aware if requested
     if point_out_dir:
         run_pipeline("point-aware", apply_material_scores_point_aware, point_out_dir)
-    # Learned scoring (material stays the same; we reuse baseline as placeholder)
+    # Learned scoring using learned weights
     if learned_out_dir:
-        run_pipeline("learned", apply_material_scores, learned_out_dir)
+        run_pipeline("learned", lambda df: apply_learned_scores(df, args.learned_weights), learned_out_dir)
 
 
 if __name__ == "__main__":
