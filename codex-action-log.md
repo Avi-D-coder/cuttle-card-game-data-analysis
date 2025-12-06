@@ -16,6 +16,7 @@
 - User requested linting with ruff, visuals, and a written takeaway document; also asked to ensure code matches the described metric.
 - Later requests: treat move value as the raw change in material diff between successive states (no actor-alignment), keep deck-depth variants and zero-diff flip handling, rerun the full CLI after code updates, and keep this log/takeaways in sync.
  - Asked to make deck-depth views more granular/continuous and ensure plots refresh accordingly.
+ - New request: add a point-aware scoring model (point cards scaled by value, K=2, Q=1.5, 8=1.5) alongside baseline; output parallel artifacts in `artifacts-point-aware/` and a separate takeaway doc.
 
 ## What was done
 - Built a Python package (`pyproject.toml`) with modules:
@@ -30,3 +31,4 @@
 - Fixed flip-probability computation to ignore zero-diff (no-leader) states; flip means a leader changing sign. Regenerated all artifacts/plots accordingly, and added deck-size heatmaps (bin width configurable).
 - Reset back to the initial commit when asked, re-applied the move-value change (diff delta per move), reran the CLI on `first_100k_gamestates.csv` to refresh every table/plot, and updated `takeaways.md` to reflect the latest outputs.
 - Increased deck-depth heatmap granularity (default deck bin width to 1 card) and reran the CLI so PNGs and tables reflect the finer deck-size resolution.
+- Implemented a point-aware scoring variant (point cards scaled by value; faces weighted K=2, Q=1.5, glasses=1.5; jacks excluded, offensive-card filter retained), added CLI flag `--point-aware-output-dir`, and generated full parallel artifacts in `artifacts-point-aware/` plus `takeaways-point-aware.md`.

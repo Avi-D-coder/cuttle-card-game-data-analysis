@@ -17,6 +17,7 @@ uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
 ## CLI options (common)
 - `--csv`: path to game-state CSV (default `first_100k_gamestates.csv`).
 - `--output-dir`: where to write tables/plots (default none).
+- `--point-aware-output-dir`: optional second output dir to run the point-aware scoring variant alongside baseline (e.g., `artifacts-point-aware`).
 - `--diff-bins`: comma-separated material diff bin edges.
 - `--deck-quantiles`: quantile buckets for deck-depth tables (default 5).
 - `--deck-bin-width`: deck-size bin width (cards remaining) for heatmaps (default 1).
@@ -24,6 +25,6 @@ uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
 
 ## Notes / misc
 - Deck-aware variants are included because deck size is public information.
-- Root-level `takeaways.md` summarizes the current findings; `artifacts/` holds only CLI-generated outputs when you run with `--output-dir artifacts`.
+- Root-level `takeaways.md` summarizes the baseline scoring; `takeaways-point-aware.md` summarizes the point-aware variant. `artifacts/` and `artifacts-point-aware/` hold CLI-generated outputs when you run with the respective output-dir flags. The initial point-aware weights are slightly less predictive than baseline (mid-range leads flip more often).
 - Material score rules are encoded from `material-score-metric.md` with the offensive-card caveat: point cards that do not reduce the number of turns-to-win are treated as zero board material.
 - If matplotlib/font cache permissions are noisy, set `MPLCONFIGDIR=.matplotlib_cache` (the CLI sets this by default).
