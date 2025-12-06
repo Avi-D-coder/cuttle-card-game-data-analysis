@@ -45,8 +45,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--csv",
         type=str,
-        default="first_100k_gamestates.csv",
-        help="Path to the game state CSV.",
+        default="first_100k_gamestates_processed.csv",
+        help="Path to the game state CSV (processed with jack stacks).",
     )
     parser.add_argument(
         "--output-dir",
@@ -59,6 +59,12 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=None,
         help="Optional directory for point-aware scoring outputs (e.g., artifacts-point-aware).",
+    )
+    parser.add_argument(
+        "--learned-output-dir",
+        type=str,
+        default=None,
+        help="Optional directory for learned scoring outputs (e.g., artifacts-learned).",
     )
     parser.add_argument(
         "--diff-bins",
@@ -106,6 +112,7 @@ def main() -> None:
     bins = parse_bins(args.diff_bins)
     out_dir = ensure_output_dir(args.output_dir)
     point_out_dir = ensure_output_dir(args.point_aware_output_dir)
+    learned_out_dir = ensure_output_dir(args.learned_output_dir)
     lead_margins = [float(x) for x in args.lead_margins.split(",")]
 
     base_df = load_gamestates(args.csv)
@@ -238,6 +245,9 @@ def main() -> None:
     # Run point-aware if requested
     if point_out_dir:
         run_pipeline("point-aware", apply_material_scores_point_aware, point_out_dir)
+    # Learned scoring (material stays the same; we reuse baseline as placeholder)
+    if learned_out_dir:
+        run_pipeline("learned", apply_material_scores, learned_out_dir)
 
 
 if __name__ == "__main__":

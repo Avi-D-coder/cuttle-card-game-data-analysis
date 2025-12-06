@@ -6,7 +6,12 @@ Material score analysis for cuttle.cards game states. Uses the provided `first_1
 
 ```bash
 uv sync          # install deps into .venv
-uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
+# preprocess jacks once to build the working CSV with jack stacks
+uv run python scripts/preprocess_jacks.py
+# run analyses (baseline + point-aware)
+uv run cuttle-analyze --csv first_100k_gamestates_processed.csv --output-dir artifacts --point-aware-output-dir artifacts-point-aware
+# train the learned perspective model
+uv run python -m machine-learning.perspective_train --csv first_100k_gamestates_processed.csv --out-dir artifacts-ml-perspective
 ```
 
 ## What it computes
@@ -28,3 +33,6 @@ uv run cuttle-analyze --csv first_100k_gamestates.csv --output-dir artifacts
 - Root-level `takeaways.md` summarizes the baseline scoring; `takeaways-point-aware.md` summarizes the point-aware variant. `artifacts/` and `artifacts-point-aware/` hold CLI-generated outputs when you run with the respective output-dir flags. The initial point-aware weights are slightly less predictive than baseline (mid-range leads flip more often).
 - Material score rules are encoded from `material-score-metric.md` with the offensive-card caveat: point cards that do not reduce the number of turns-to-win are treated as zero board material.
 - If matplotlib/font cache permissions are noisy, set `MPLCONFIGDIR=.matplotlib_cache` (the CLI sets this by default).
+- A learning pipeline lives in `machine-learning/`: run `uv run python -m machine-learning.perspective_train --csv first_100k_gamestates_processed.csv --out-dir artifacts-ml-perspective` to fit per-player perspective weights (uses only information known to that player, including jacked stacks, scrap, deck size). Outputs: weights/metrics/calibration in `artifacts-ml-perspective/`.
+- For a simpler user-facing weight set that does not require computing cards-needed-to-win, use `artifacts-ml-perspective/weights_nocardsneeded.{json,csv}`, which folds the cards-needed weights into the intercept (using dataset means) while retaining deck-size awareness.
+- The preprocessing step (`scripts/preprocess_jacks.py`) reconstructs jack control stacks per game and adds `p0JackedCards` / `p1JackedCards` columns to `first_100k_gamestates_processed.csv` (tokens like `JJ10C` show stack height/prefix and controller).

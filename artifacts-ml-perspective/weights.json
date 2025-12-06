@@ -1,0 +1,162 @@
+{
+  "intercept": -0.11337318805954175,
+  "weights": [
+    {
+      "feature": "hand_A",
+      "weight": 0.06583957421725452
+    },
+    {
+      "feature": "hand_2",
+      "weight": 0.5730617206518548
+    },
+    {
+      "feature": "hand_3",
+      "weight": -0.1607167324915428
+    },
+    {
+      "feature": "hand_4",
+      "weight": -0.11189263616827975
+    },
+    {
+      "feature": "hand_5",
+      "weight": -0.0036209531051988085
+    },
+    {
+      "feature": "hand_6",
+      "weight": 0.1812026697228852
+    },
+    {
+      "feature": "hand_7",
+      "weight": 0.131758251237899
+    },
+    {
+      "feature": "hand_8",
+      "weight": 0.006538566406502333
+    },
+    {
+      "feature": "hand_9",
+      "weight": 0.06017087507076608
+    },
+    {
+      "feature": "hand_T",
+      "weight": 0.298941524782471
+    },
+    {
+      "feature": "hand_J",
+      "weight": 0.2580085967431422
+    },
+    {
+      "feature": "hand_Q",
+      "weight": 0.17119185038097962
+    },
+    {
+      "feature": "hand_K",
+      "weight": 0.05953278381993825
+    },
+    {
+      "feature": "contrib_points",
+      "weight": -0.374396589316467
+    },
+    {
+      "feature": "points_total",
+      "weight": 0.0945171394969865
+    },
+    {
+      "feature": "cards_needed",
+      "weight": -0.24513202545507715
+    },
+    {
+      "feature": "redundant_points",
+      "weight": -0.31368121058740245
+    },
+    {
+      "feature": "face_K",
+      "weight": 0.3532469519307707
+    },
+    {
+      "feature": "face_Q",
+      "weight": 0.30214092765860145
+    },
+    {
+      "feature": "face_8",
+      "weight": -0.13768864243174433
+    },
+    {
+      "feature": "board_material",
+      "weight": 0.14330264784116
+    },
+    {
+      "feature": "has_glasses",
+      "weight": -0.13768864243174433
+    },
+    {
+      "feature": "opp_board_material",
+      "weight": -0.37617131156581785
+    },
+    {
+      "feature": "opp_face_K",
+      "weight": -0.2206672145990302
+    },
+    {
+      "feature": "opp_face_Q",
+      "weight": -0.1934251499619232
+    },
+    {
+      "feature": "opp_face_8",
+      "weight": 0.19005306123256133
+    },
+    {
+      "feature": "opp_contrib_points",
+      "weight": -0.15213200823742268
+    },
+    {
+      "feature": "opp_cards_needed",
+      "weight": 0.03530230981280257
+    },
+    {
+      "feature": "opp_redundant_points",
+      "weight": 0.54188395266531
+    },
+    {
+      "feature": "opp_has_glasses",
+      "weight": 0.19005306123256133
+    },
+    {
+      "feature": "is_turn",
+      "weight": 0.26280192274824915
+    }
+  ],
+  "feature_order": [
+    "hand_A",
+    "hand_2",
+    "hand_3",
+    "hand_4",
+    "hand_5",
+    "hand_6",
+    "hand_7",
+    "hand_8",
+    "hand_9",
+    "hand_T",
+    "hand_J",
+    "hand_Q",
+    "hand_K",
+    "contrib_points",
+    "points_total",
+    "cards_needed",
+    "redundant_points",
+    "face_K",
+    "face_Q",
+    "face_8",
+    "board_material",
+    "has_glasses",
+    "opp_board_material",
+    "opp_face_K",
+    "opp_face_Q",
+    "opp_face_8",
+    "opp_contrib_points",
+    "opp_cards_needed",
+    "opp_redundant_points",
+    "opp_has_glasses",
+    "is_turn"
+  ]
+}
