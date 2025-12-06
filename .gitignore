@@ -1,0 +1,7 @@
+.venv/
+.matplotlib_cache/
+__pycache__/
+*.pyc
+src/cuttle_analysis.egg-info/
+artifacts/*.tmp
+artifacts/*.log

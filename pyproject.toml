@@ -1,0 +1,25 @@
+[project]
+name = "cuttle-analysis"
+version = "0.1.0"
+description = "Material score analysis for cuttle.cards game states"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "pyarrow",
+    "matplotlib",
+    "seaborn",
+    "statsmodels",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+]
+
+[project.scripts]
+cuttle-analyze = "cuttle_analysis.cli:main"
+
+[tool.uv]
+package = true
